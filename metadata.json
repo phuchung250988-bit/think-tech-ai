@@ -1,0 +1,6 @@
+{
+  "name": "StudySync AI - Trợ lý ôn tập thông minh",
+  "description": "StudySync AI đồng hành cùng học sinh trước mỗi kỳ kiểm tra: nhắc đúng lúc qua vòng tay, ôn đúng phần trên điện thoại và AI phát hiện lỗ hổng kiến thức.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
