@@ -1,4 +1,5 @@
 import express from "express";
+import http from "node:http";
 import path from "path";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
@@ -376,10 +377,16 @@ function getDefaultSchedule(subject = "Toán", days = 5, dailyMinutes = 20) {
 }
 
 async function startServer() {
+  const server = http.createServer(app);
+
   // Vite middleware in dev mode
   if (process.env.NODE_ENV !== "production") {
+    const isHmrDisabled = process.env.DISABLE_HMR === "true";
     const vite = await createViteServer({
-      server: { middlewareMode: true },
+      server: {
+        middlewareMode: true,
+        hmr: isHmrDisabled ? false : { server },
+      },
       appType: "spa",
     });
     app.use(vite.middlewares);
@@ -391,7 +398,7 @@ async function startServer() {
     });
   }
 
-  app.listen(PORT, "0.0.0.0", () => {
+  server.listen(PORT, "0.0.0.0", () => {
     console.log(`StudySync AI server running on http://0.0.0.0:${PORT}`);
   });
 }

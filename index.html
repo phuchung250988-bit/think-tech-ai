@@ -12,6 +12,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <script>
+      // Ignore WebSocket/HMR errors in preview environment as instructed in guidelines
+      window.addEventListener('unhandledrejection', function(event) {
+        var reason = event && event.reason;
+        var msg = (reason && (reason.message || reason.stack || String(reason))) || '';
+        if (
+          msg.includes('WebSocket') ||
+          msg.includes('vite') ||
+          msg.includes('closed without opened') ||
+          msg.includes('ws')
+        ) {
+          event.preventDefault();
+        }
+      });
+      window.addEventListener('error', function(event) {
+        var msg = (event && (event.message || event.filename || '')) || '';
+        if (
+          msg.includes('WebSocket') ||
+          msg.includes('vite') ||
+          msg.includes('closed without opened') ||
+          msg.includes('@vite/client')
+        ) {
+          event.preventDefault();
+        }
+      });
+    </script>
   </head>
   <body class="font-sans antialiased text-[#172033] bg-[#f5f8ff] min-h-screen">
     <div id="root"></div>
